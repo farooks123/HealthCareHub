@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import nimblix.in.HealthCareHub.utility.HealthCareUtil;
 
+import java.util.List;
+
 @Entity
 @Table(name = "doctors")
 @Getter
@@ -48,6 +50,9 @@ public class Doctor {
 
     @Column(name = "updated_time")
     private String updatedTime;
+
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    private List<Appointment> appointments;
 
 
     @PrePersist
