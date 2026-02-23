@@ -12,9 +12,9 @@ import java.util.List;
 public class PatientController {
     @Autowired
     private PatientService service;
+
     @PostMapping("/add")
-    public Patient addPatient(@RequestBody Patient patient)
-    {
+    public Patient addPatient(@RequestBody Patient patient) {
         return service.savePatient(patient);
     }
 
@@ -32,4 +32,4 @@ public class PatientController {
         return service.softDeletePatient(id);
     }
 
-
+}
