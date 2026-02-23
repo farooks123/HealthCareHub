@@ -17,6 +17,14 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "is_deleted")
+    private Boolean isDeleted = false;
+
+    public void setDeleted() {
+        this.isDeleted = true;
+    }
+
+
     @Column(name = "name")
     private String name;
 
@@ -50,16 +58,18 @@ public class Patient {
 
 
     @PrePersist
-    protected void onCreate(){
-        createdTime= HealthCareUtil.changeCurrentTimeToLocalDateFromGmtToISTInString();
-        updatedTime= HealthCareUtil.changeCurrentTimeToLocalDateFromGmtToISTInString();
+    protected void onCreate() {
+        createdTime = HealthCareUtil.changeCurrentTimeToLocalDateFromGmtToISTInString();
+        updatedTime = HealthCareUtil.changeCurrentTimeToLocalDateFromGmtToISTInString();
 
     }
 
     @PreUpdate
-    protected void onUpdate(){
-        this.updatedTime= HealthCareUtil.changeCurrentTimeToLocalDateFromGmtToISTInString();
+    protected void onUpdate() {
+        this.updatedTime = HealthCareUtil.changeCurrentTimeToLocalDateFromGmtToISTInString();
 
 
     }
+
+
 }
