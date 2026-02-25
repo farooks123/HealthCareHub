@@ -1,7 +1,7 @@
 package nimblix.in.HealthCareHub.controller;
 
 import nimblix.in.HealthCareHub.request.AdmitPatientRequestDTO;
-import nimblix.in.HealthCareHub.response.AdmitPatientResponseDTO;
+import nimblix.in.HealthCareHub.response.AdmitPatientResponse;
 import nimblix.in.HealthCareHub.service.AdmissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ public class AdmissionController {
     // POST /api/admissions/admit
     @PostMapping("/admit")
     public ResponseEntity<Map<String, Object>> admitPatient(@RequestBody AdmitPatientRequestDTO request) {
-        AdmitPatientResponseDTO data = admissionService.admitPatient(request);
+        AdmitPatientResponse data = admissionService.admitPatient(request);
 
         Map<String, Object> response = new HashMap<>();
         response.put("status", HttpStatus.CREATED.value());

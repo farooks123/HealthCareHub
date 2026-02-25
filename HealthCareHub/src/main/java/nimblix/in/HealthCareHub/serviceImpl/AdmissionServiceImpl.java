@@ -3,7 +3,7 @@ package nimblix.in.HealthCareHub.serviceImpl;
 import nimblix.in.HealthCareHub.model.*;
 import nimblix.in.HealthCareHub.repository.*;
 import nimblix.in.HealthCareHub.request.AdmitPatientRequestDTO;
-import nimblix.in.HealthCareHub.response.AdmitPatientResponseDTO;
+import nimblix.in.HealthCareHub.response.AdmitPatientResponse;
 import nimblix.in.HealthCareHub.exception.DoctorNotFoundException;
 import nimblix.in.HealthCareHub.exception.PatientNotFoundException;
 import nimblix.in.HealthCareHub.exception.RoomNotFoundException;
@@ -31,7 +31,7 @@ public class AdmissionServiceImpl implements AdmissionService {
 
     @Override
     @Transactional
-    public AdmitPatientResponseDTO admitPatient(AdmitPatientRequestDTO request) {
+    public AdmitPatientResponse admitPatient(AdmitPatientRequestDTO request) {
 
         Patient patient = patientRepository.findById(request.getPatientId())
                 .orElseThrow(() -> new PatientNotFoundException(
@@ -78,11 +78,11 @@ public class AdmissionServiceImpl implements AdmissionService {
         return mapToResponse(savedAdmission, patient, doctor, room);
     }
 
-    private AdmitPatientResponseDTO mapToResponse(Admission admission,
-                                                  Patient patient,
-                                                  Doctor doctor,
-                                                  Room room) {
-        AdmitPatientResponseDTO response = new AdmitPatientResponseDTO();
+    private AdmitPatientResponse mapToResponse(Admission admission,
+                                               Patient patient,
+                                               Doctor doctor,
+                                               Room room) {
+        AdmitPatientResponse response = new AdmitPatientResponse();
 
         // Admission info
         response.setAdmissionId(admission.getAdmissionId());

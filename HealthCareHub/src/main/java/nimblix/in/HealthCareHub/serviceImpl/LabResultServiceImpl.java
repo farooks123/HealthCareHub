@@ -2,13 +2,12 @@ package nimblix.in.HealthCareHub.serviceImpl;
 
 import nimblix.in.HealthCareHub.repository.DoctorRepository;
 import nimblix.in.HealthCareHub.repository.SpecializationRepository;
-import nimblix.in.HealthCareHub.response.LabResultResponseDTO;
+import nimblix.in.HealthCareHub.response.LabResultResponse;
 import nimblix.in.HealthCareHub.exception.LabResultNotFoundException;
 import nimblix.in.HealthCareHub.exception.PatientNotFoundException;
 import nimblix.in.HealthCareHub.model.Doctor;
 import nimblix.in.HealthCareHub.model.LabResult;
 import nimblix.in.HealthCareHub.model.Patient;
-import nimblix.in.HealthCareHub.model.Specialization;
 
 import nimblix.in.HealthCareHub.repository.LabResultRepository;
 import nimblix.in.HealthCareHub.repository.PatientRepository;
@@ -34,7 +33,7 @@ public class LabResultServiceImpl implements LabResultService {
     private SpecializationRepository specializationRepository;
 
     @Override
-    public LabResultResponseDTO getLabResultById(Long resultId) {
+    public LabResultResponse getLabResultById(Long resultId) {
 
 
         LabResult labResult = labResultRepository.findById(resultId)
@@ -45,16 +44,16 @@ public class LabResultServiceImpl implements LabResultService {
     }
 
     @Override
-    public List<LabResultResponseDTO> getLabResultsByPatient(Long patientId) {
+    public List<LabResultResponse> getLabResultsByPatient(Long patientId) {
 
         // Validate patient exists
         patientRepository.findById(patientId)
                 .orElseThrow(() -> new PatientNotFoundException(
                         "Patient not found with id: " + patientId));
-                /* List<LabResultResponseDTO> responseList = new ArrayList<>();
+                /* List<LabResultResponse> responseList = new ArrayList<>();
 
         for (LabResult labResult : results) {
-            LabResultResponseDTO request = mapToResponse(labResult);
+            LabResultResponse request = mapToResponse(labResult);
             responseList.add(request);
         }
       */
@@ -69,9 +68,9 @@ public class LabResultServiceImpl implements LabResultService {
 
 
 
-    private LabResultResponseDTO mapToResponse(LabResult labResult) {
+    private LabResultResponse mapToResponse(LabResult labResult) {
 
-        LabResultResponseDTO response = new LabResultResponseDTO();
+        LabResultResponse response = new LabResultResponse();
 
         // Lab result info
         response.setResultId(labResult.getResultId());

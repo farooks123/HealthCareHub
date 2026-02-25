@@ -1,6 +1,6 @@
 package nimblix.in.HealthCareHub.controller;
 
-import nimblix.in.HealthCareHub.response.LabResultResponseDTO;
+import nimblix.in.HealthCareHub.response.LabResultResponse;
 import nimblix.in.HealthCareHub.service.LabResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +24,7 @@ public class LabResultController {
     public ResponseEntity<Map<String, Object>> getLabResultById(
             @PathVariable Long resultId) {
 
-        LabResultResponseDTO data = labResultService.getLabResultById(resultId);
+        LabResultResponse data = labResultService.getLabResultById(resultId);
 
         Map<String, Object> response = new HashMap<>();
         response.put("status", HttpStatus.OK.value());
@@ -40,7 +40,7 @@ public class LabResultController {
     public ResponseEntity<Map<String, Object>> getLabResultsByPatient(
             @PathVariable Long patientId) {
 
-        List<LabResultResponseDTO> data = labResultService.getLabResultsByPatient(patientId);
+        List<LabResultResponse> data = labResultService.getLabResultsByPatient(patientId);
 
         Map<String, Object> response = new HashMap<>();
         response.put("status", HttpStatus.OK.value());

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LabResultResponseDTO {
+public class LabResultResponse {
 
     private Long resultId;
 

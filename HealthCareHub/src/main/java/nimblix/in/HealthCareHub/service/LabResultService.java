@@ -1,14 +1,14 @@
 package nimblix.in.HealthCareHub.service;
 
-import nimblix.in.HealthCareHub.response.LabResultResponseDTO;
+import nimblix.in.HealthCareHub.response.LabResultResponse;
 
 import java.util.List;
 
 public interface LabResultService {
 
     // Task 186 - Get lab result by ID
-    LabResultResponseDTO getLabResultById(Long resultId);
+    LabResultResponse getLabResultById(Long resultId);
 
     // Get all lab results for a patient
-    List<LabResultResponseDTO> getLabResultsByPatient(Long patientId);
+    List<LabResultResponse> getLabResultsByPatient(Long patientId);
 }
