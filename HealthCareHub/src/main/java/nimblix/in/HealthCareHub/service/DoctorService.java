@@ -1,12 +1,15 @@
 package nimblix.in.HealthCareHub.service;
 
-import nimblix.in.HealthCareHub.dto.DoctorPerformanceReport;
+
+
+import nimblix.in.HealthCareHub.response.DoctorPerformanceReportResponse;
 
 import java.util.List;
 
 public interface DoctorService {
 
-    List<DoctorPerformanceReport> getDoctorPerformanceReport();
+    List<DoctorPerformanceReportResponse> getDoctorPerformanceReport();
+    DoctorPerformanceReportResponse getDoctorPerformanceById(Long doctorId);
 
 
 }

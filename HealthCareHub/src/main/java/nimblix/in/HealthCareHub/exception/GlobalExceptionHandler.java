@@ -23,14 +23,13 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(AdminNotFoundException.class)
-    public ResponseEntity<Map<String, Object>> handleAdminNotFound(UserNotFoundException ex) {
+    public ResponseEntity<Map<String, Object>> handleAdminNotFound(AdminNotFoundException ex) {
         Map<String, Object> response = new HashMap<>();
         response.put("status", HttpStatus.NOT_FOUND.value());
         response.put("error", "Not Found");
-        response.put("message", ex.getMessage());
+        response.put("message", ex.getMessage()); // will show "Admin not found"
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
-
 
     // 400 - Bad request (invalid inputs)
     @ExceptionHandler({

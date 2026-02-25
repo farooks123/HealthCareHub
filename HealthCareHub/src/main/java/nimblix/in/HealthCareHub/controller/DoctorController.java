@@ -1,29 +1,31 @@
 package nimblix.in.HealthCareHub.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Primary;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import nimblix.in.HealthCareHub.response.DoctorPerformanceReportResponse;
+import nimblix.in.HealthCareHub.service.DoctorService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 @RestController
-@RequestMapping("/doctor")
+@RequestMapping("/api/doctors")
+@RequiredArgsConstructor
 public class DoctorController {
 
+    private final DoctorService doctorService;
 
-    /*
-Json object:
-key and value pair
+    // All doctors performance
+    @GetMapping("/performance-report")
+    public ResponseEntity<List<DoctorPerformanceReportResponse>> getDoctorPerformanceReport() {
+        List<DoctorPerformanceReportResponse> report = doctorService.getDoctorPerformanceReport();
+        return ResponseEntity.ok(report);
+    }
 
-{
-"name": "tejaswini",
-"mobile number":"8937483454",
-"date":"10-05-2026",
-}
-
-*/
-
-
+    // Particular doctor performance by ID
+    @GetMapping("/performance-report/{doctorId}")
+    public ResponseEntity<DoctorPerformanceReportResponse> getDoctorPerformanceById(@PathVariable Long doctorId) {
+        DoctorPerformanceReportResponse report = doctorService.getDoctorPerformanceById(doctorId);
+        return ResponseEntity.ok(report);
+    }
 }
