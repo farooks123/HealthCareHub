@@ -9,4 +9,5 @@ public class DoctorPerformanceReportResponse {
     private Long doctorId;
     private String doctorName;
     private Long patientCount;
+    private Double totalRevenue;
 }

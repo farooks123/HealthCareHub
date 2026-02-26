@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping("api/patient")
 @RequiredArgsConstructor
-@RequestMapping("/api/patients")
 public class PatientController {
 
     @Autowired
@@ -27,4 +26,5 @@ public class PatientController {
         List<DailyVisitReportResponse> response = patientService.getDailyVisits(date);
         return ResponseEntity.ok(response); // 200 OK
     }
+
 }

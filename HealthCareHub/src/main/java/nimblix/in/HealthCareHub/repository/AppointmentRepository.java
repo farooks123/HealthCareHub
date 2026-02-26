@@ -3,6 +3,7 @@ package nimblix.in.HealthCareHub.repository;
 import nimblix.in.HealthCareHub.model.Appointment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -14,30 +15,39 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     Long countByAppointmentDateTimeBetween(LocalDateTime start, LocalDateTime end);
 
 
-    @Query("SELECT a.doctor.id, a.doctor.name, COUNT(a) " +
+    // Doctor performance report for all doctors
+    @Query("SELECT a.doctor.id, a.doctor.name, COUNT(a), SUM(p.amount) " +
             "FROM Appointment a " +
+            "JOIN Payment p ON p.appointment.id = a.id " +
             "WHERE a.status = 'COMPLETED' " +
             "GROUP BY a.doctor.id, a.doctor.name")
     List<Object[]> getDoctorPerformanceReport();
 
-    @Query("SELECT a.doctor.id, a.doctor.name, COUNT(a) " +
+    // Doctor performance report for a specific doctor
+    @Query("SELECT a.doctor.id, a.doctor.name, COUNT(a), SUM(p.amount) " +
             "FROM Appointment a " +
+            "JOIN Payment p ON p.appointment.id = a.id " +
             "WHERE a.status = 'COMPLETED' AND a.doctor.id = :doctorId " +
             "GROUP BY a.doctor.id, a.doctor.name")
-    List<Object[]> getDoctorPerformanceById(Long doctorId);
+    List<Object[]> getDoctorPerformanceById(@Param("doctorId") Long doctorId);
 
-
-    @Query("SELECT a.doctor.specialization.id, a.doctor.specialization.name, COUNT(a) " +
+    @Query("SELECT s.id, s.name, SUM(p.amount) " +
             "FROM Appointment a " +
+            "JOIN a.doctor d " +
+            "JOIN d.specialization s " +
+            "JOIN Payment p ON p.appointment.id = a.id " +
             "WHERE a.status = 'COMPLETED' " +
-            "GROUP BY a.doctor.specialization.id, a.doctor.specialization.name")
+            "GROUP BY s.id, s.name")
     List<Object[]> getSpecializationPerformanceReport();
 
-    @Query("SELECT a.doctor.specialization.id, a.doctor.specialization.name, COUNT(a) " +
+    @Query("SELECT s.id, s.name, SUM(p.amount) " +
             "FROM Appointment a " +
-            "WHERE a.status = 'COMPLETED' AND a.doctor.specialization.id = :specializationId " +
-            "GROUP BY a.doctor.specialization.id, a.doctor.specialization.name")
-    List<Object[]> getSpecializationPerformanceById(Long specializationId);
+            "JOIN a.doctor d " +
+            "JOIN d.specialization s " +
+            "JOIN Payment p ON p.appointment.id = a.id " +
+            "WHERE a.status = 'COMPLETED' AND s.id = :specializationId " +
+            "GROUP BY s.id, s.name")
+    List<Object[]> getSpecializationPerformanceById(@Param("specializationId") Long specializationId);
 
 
     @Query("SELECT a.doctor.hospital.id, a.doctor.hospital.name, COUNT(a) " +
@@ -66,6 +76,15 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
             "WHERE a.status = 'COMPLETED' AND h.id = :hospitalId " +
             "GROUP BY h.id, h.name, h.totalBeds")
     List<Object[]> getHospitalOccupancyById(Long hospitalId);
+
+
+    @Query("SELECT h.name, h.totalBeds, COUNT(a.id) " +
+            "FROM Appointment a " +
+            "JOIN a.doctor d " +
+            "JOIN d.hospital h " +
+            "WHERE a.status = 'COMPLETED' " +
+            "GROUP BY h.name, h.totalBeds")
+    List<Object[]> getBedOccupancyReport();
 
 
 

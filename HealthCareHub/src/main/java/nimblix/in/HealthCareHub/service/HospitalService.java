@@ -8,7 +8,8 @@ import java.util.List;
 public interface HospitalService {
 
     String registerHospital(HospitalRegistrationRequest request);
-    List<BedOccupancyReportResponse> getHospitalOccupancyReport();
-    BedOccupancyReportResponse getHospitalOccupancyById(Long hospitalId);
 
+    List<BedOccupancyReportResponse> getHospitalOccupancyReport();
+
+    BedOccupancyReportResponse getHospitalOccupancyById(Long hospitalId);
 }
