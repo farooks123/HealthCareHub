@@ -51,9 +51,6 @@ public class Doctor {
     @Column(name = "updated_time")
     private String updatedTime;
 
-    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
-    private List<Appointment> appointments;
-
 
     @PrePersist
     protected void onCreate(){

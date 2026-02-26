@@ -39,7 +39,5 @@ public class PatientServiceImpl implements PatientService {
         if (count == null || count == 0) {
             throw new UserNotFoundException("No visits found for date: " + date);
         }
-
-        return List.of(new DailyVisitReportResponse(date, count));
-    }
+public class PatientServiceImpl {
 }
