@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface PatientService {
+
     List<DailyVisitReportResponse> getDailyVisits(LocalDate date);
 
 }

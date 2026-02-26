@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import nimblix.in.HealthCareHub.utility.HealthCareUtil;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "appointments")
 @Getter
@@ -25,8 +27,13 @@ public class Appointment {
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
-    private String appointmentDateTime;
+    @Column(name = "appointment_date_time")
+    private LocalDateTime appointmentDateTime;
+
     private String status; // BOOKED, CANCELLED, COMPLETED
+
+
+
 
     private String createdTime;
     private String updatedTime;

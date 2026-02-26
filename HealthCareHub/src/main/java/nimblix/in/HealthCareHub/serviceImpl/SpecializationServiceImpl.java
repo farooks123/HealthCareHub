@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,16 +26,15 @@ public class SpecializationServiceImpl implements SpecializationService {
 
         return results.stream()
                 .map(row -> new SpecializationPerformanceReportResponse(
-                        (Long) row[0],
-                        (String) row[1],
-                        (Long) row[2]
+                        (Long) row[0],       // specializationId
+                        (String) row[1],     // specializationName
+                        (Double) row[2]      // totalRevenue
                 ))
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Override
     public SpecializationPerformanceReportResponse getSpecializationPerformanceById(Long specializationId) {
-        // ✅ Bad Request validation
         if (specializationId == null || specializationId <= 0) {
             throw new IllegalArgumentException("Invalid specialization ID: " + specializationId);
         }
@@ -47,9 +47,9 @@ public class SpecializationServiceImpl implements SpecializationService {
 
         Object[] row = results.get(0);
         return new SpecializationPerformanceReportResponse(
-                (Long) row[0],
-                (String) row[1],
-                (Long) row[2]
+                (Long) row[0],       // specializationId
+                (String) row[1],     // specializationName
+                (Double) row[2]      // totalRevenue
         );
     }
 }

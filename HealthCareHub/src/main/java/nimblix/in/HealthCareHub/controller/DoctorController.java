@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import lombok.RequiredArgsConstructor;
 import nimblix.in.HealthCareHub.request.DoctorRegistrationRequest;
 import nimblix.in.HealthCareHub.service.DoctorService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import nimblix.in.HealthCareHub.response.DoctorPerformanceReportResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
@@ -30,9 +33,14 @@ public class DoctorController {
     @PostMapping("/register")
     public String registerDoctor(@RequestBody DoctorRegistrationRequest request) {
         return doctorService.registerDoctor(request);
+    }
 
     }
 
+    @GetMapping("/getDoctorDetails")
+    public ResponseEntity<?> getDoctorDetails(@RequestParam Long doctorId,
+                                              @RequestParam Long hospitalId) {
+        return doctorService.getDoctorDetails(doctorId, hospitalId);
     @GetMapping("/getDoctorDetails/{doctorId}/{hospitalId}")
     public ResponseEntity<?> getDoctorDetails(@PathVariable Long doctorId,
                                               @PathVariable Long hospitalId) {
@@ -45,6 +53,7 @@ public class DoctorController {
         List<DoctorPerformanceReportResponse> report = doctorService.getDoctorPerformanceReport();
         return ResponseEntity.ok(report);
     }
+
     @PutMapping("/updateDoctorDetails")
      public String updateDoctorDetails(@RequestBody DoctorRegistrationRequest request){
         return doctorService.updateDoctorDetails(request);

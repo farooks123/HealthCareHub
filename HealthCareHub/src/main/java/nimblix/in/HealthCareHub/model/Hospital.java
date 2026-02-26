@@ -1,5 +1,6 @@
 package nimblix.in.HealthCareHub.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import nimblix.in.HealthCareHub.utility.HealthCareUtil;
@@ -32,6 +33,9 @@ public class Hospital {
     private String email;
 
     private Integer totalBeds;
+
+
+
 
 
     @Column(name = "created_time", updatable = false)

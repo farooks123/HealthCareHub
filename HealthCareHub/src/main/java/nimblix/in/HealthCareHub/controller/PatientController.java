@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/patients")
 @RequestMapping("/api/patient")
 @RequiredArgsConstructor
+@RequestMapping("api/patient")
+@RequiredArgsConstructor
 public class PatientController {
 
     @Autowired
@@ -27,4 +29,5 @@ public class PatientController {
         List<DailyVisitReportResponse> response = patientService.getDailyVisits(date);
         return ResponseEntity.ok(response); // 200 OK
     }
+
 }

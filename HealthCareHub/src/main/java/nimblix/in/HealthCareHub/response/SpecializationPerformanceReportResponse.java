@@ -8,5 +8,5 @@ import lombok.Data;
 public class SpecializationPerformanceReportResponse {
     private Long specializationId;
     private String specializationName;
-    private Long patientCount;
+    private Double totalRevenue;
 }

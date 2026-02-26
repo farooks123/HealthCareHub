@@ -27,6 +27,12 @@ public class Doctor {
     private String phone;
 
     @Column(unique = true)
+    private  String emailId;
+
+    private String password;
+
+    @Column(name = "qualification")
+    @Column(unique = true)
     private String emailId;
 
     private String description;
