@@ -21,12 +21,14 @@ public class Doctor {
     @Column(nullable = false)
     private String name;
 
-    private Integer experienceYears;
+    private Long experienceYears;
 
     private String phone;
 
     @Column(unique = true)
     private String emailId;
+
+    private String description;
 
     private String password;
 
@@ -41,6 +43,9 @@ public class Doctor {
     @ManyToOne
     @JoinColumn(name = "hospital_id", nullable = false)
     private Hospital hospital;
+
+    @Column(name = "is_active")
+    private  String isActive;
 
     // ✅ Many Doctors → One Specialization
     @ManyToOne

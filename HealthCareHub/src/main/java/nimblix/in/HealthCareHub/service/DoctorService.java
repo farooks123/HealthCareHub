@@ -17,4 +17,11 @@ public interface DoctorService {
     String registerDoctor(DoctorRegistrationRequest request);
 
     ResponseEntity<?> getDoctorDetails(Long doctorId, Long hospitalId);
+
+
+
+    String updateDoctorDetails(DoctorRegistrationRequest request);
+
+    String deleteDoctorDetails(Long doctorId);
 }
+
