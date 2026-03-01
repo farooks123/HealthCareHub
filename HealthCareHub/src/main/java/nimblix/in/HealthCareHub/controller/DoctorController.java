@@ -2,6 +2,7 @@ package nimblix.in.HealthCareHub.controller;
 
 import lombok.RequiredArgsConstructor;
 import nimblix.in.HealthCareHub.request.DoctorRegistrationRequest;
+import nimblix.in.HealthCareHub.response.DepartmentRevenueResponse;
 import nimblix.in.HealthCareHub.response.DoctorPerformanceReportResponse;
 import nimblix.in.HealthCareHub.service.DoctorService;
 import org.springframework.http.ResponseEntity;
@@ -57,4 +58,23 @@ public class DoctorController {
         String result = doctorService.deleteDoctorDetails(doctorId);
         return ResponseEntity.ok(result);
     }
+
+
+
+    @GetMapping("/revenue-report")
+    public ResponseEntity<List<DepartmentRevenueResponse>> getRevenueBySpecialization() {
+        List<DepartmentRevenueResponse> report = doctorService.getRevenueBySpecialization();
+        return ResponseEntity.ok(report);
+    }
+
+    // Revenue for a specific specialization
+    @GetMapping("/revenue-report/{specializationId}")
+    public ResponseEntity<DepartmentRevenueResponse> getRevenueBySpecializationId(@PathVariable Long specializationId) {
+        DepartmentRevenueResponse report = doctorService.getRevenueBySpecializationId(specializationId);
+        return ResponseEntity.ok(report);
+    }
+
+
+
+
 }

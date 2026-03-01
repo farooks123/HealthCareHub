@@ -1,11 +1,13 @@
 package nimblix.in.HealthCareHub.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
-public class SpecializationPerformanceReportResponse {
+@Builder
+public class DepartmentRevenueResponse {
     private Long specializationId;
     private String specializationName;
     private Double totalRevenue;

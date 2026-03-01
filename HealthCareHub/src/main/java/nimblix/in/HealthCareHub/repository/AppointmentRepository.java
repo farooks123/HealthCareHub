@@ -31,23 +31,25 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
             "GROUP BY a.doctor.id, a.doctor.name")
     List<Object[]> getDoctorPerformanceById(@Param("doctorId") Long doctorId);
 
+    // Revenue by all specializations (departments)
     @Query("SELECT s.id, s.name, SUM(p.amount) " +
             "FROM Appointment a " +
-            "JOIN a.doctor d " +
-            "JOIN d.specialization s " +
+            "JOIN Doctor d ON a.doctor.id = d.id " +
+            "JOIN Specialization s ON d.specialization.id = s.id " +
             "JOIN Payment p ON p.appointment.id = a.id " +
             "WHERE a.status = 'COMPLETED' " +
             "GROUP BY s.id, s.name")
-    List<Object[]> getSpecializationPerformanceReport();
+    List<Object[]> getRevenueBySpecialization();
 
+    // Revenue for a specific specialization
     @Query("SELECT s.id, s.name, SUM(p.amount) " +
             "FROM Appointment a " +
-            "JOIN a.doctor d " +
-            "JOIN d.specialization s " +
+            "JOIN Doctor d ON a.doctor.id = d.id " +
+            "JOIN Specialization s ON d.specialization.id = s.id " +
             "JOIN Payment p ON p.appointment.id = a.id " +
             "WHERE a.status = 'COMPLETED' AND s.id = :specializationId " +
             "GROUP BY s.id, s.name")
-    List<Object[]> getSpecializationPerformanceById(@Param("specializationId") Long specializationId);
+    List<Object[]> getRevenueBySpecializationId(@Param("specializationId") Long specializationId);
 
 
     @Query("SELECT a.doctor.hospital.id, a.doctor.hospital.name, COUNT(a) " +

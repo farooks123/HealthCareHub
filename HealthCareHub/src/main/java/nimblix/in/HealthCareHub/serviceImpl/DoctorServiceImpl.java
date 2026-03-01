@@ -11,6 +11,7 @@ import nimblix.in.HealthCareHub.repository.DoctorRepository;
 import nimblix.in.HealthCareHub.repository.HospitalRepository;
 import nimblix.in.HealthCareHub.repository.SpecializationRepository;
 import nimblix.in.HealthCareHub.request.DoctorRegistrationRequest;
+import nimblix.in.HealthCareHub.response.DepartmentRevenueResponse;
 import nimblix.in.HealthCareHub.response.DoctorPerformanceReportResponse;
 import nimblix.in.HealthCareHub.service.DoctorService;
 import org.springframework.http.HttpStatus;
@@ -119,7 +120,7 @@ public class DoctorServiceImpl implements DoctorService {
                         (Long) row[0],       // doctorId
                         (String) row[1],     // doctorName
                         (Long) row[2],       // totalAppointments
-                        (Double) row[3]      // totalRevenue
+                        row[3] != null ? (Double) row[3] : 0.0 // totalRevenue
                 ))
                 .collect(Collectors.toList());
     }
@@ -141,7 +142,47 @@ public class DoctorServiceImpl implements DoctorService {
                 (Long) row[0],       // doctorId
                 (String) row[1],     // doctorName
                 (Long) row[2],       // totalAppointments
-                (Double) row[3]      // totalRevenue
+                row[3] != null ? (Double) row[3] : 0.0 // totalRevenue
+        );
+    }
+
+
+
+    @Override
+    public List<DepartmentRevenueResponse> getRevenueBySpecialization() {
+        List<Object[]> results = appointmentRepository.getRevenueBySpecialization();
+
+        if (results == null || results.isEmpty()) {
+            throw new UserNotFoundException("Revenue data not found for any specialization");
+        }
+
+        return results.stream()
+                .map(row -> new DepartmentRevenueResponse(
+                        (Long) row[0],       // specializationId
+                        (String) row[1],     // specializationName
+                        row[2] != null ? (Double) row[2] : 0.0 // totalRevenue
+                ))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public DepartmentRevenueResponse getRevenueBySpecializationId(Long specializationId) {
+        if (specializationId == null || specializationId <= 0) {
+            throw new IllegalArgumentException("Invalid specialization ID: " + specializationId);
+        }
+
+        List<Object[]> results = appointmentRepository.getRevenueBySpecializationId(specializationId);
+
+        if (results == null || results.isEmpty()) {
+            throw new UserNotFoundException("Revenue data not found for specialization ID: " + specializationId);
+        }
+
+        Object[] row = results.get(0);
+        return new DepartmentRevenueResponse(
+                (Long) row[0],
+                (String) row[1],
+                row[2] != null ? (Double) row[2] : 0.0
         );
     }
 }
+

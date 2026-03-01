@@ -1,12 +1,17 @@
 package nimblix.in.HealthCareHub.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class MonthlyFinancialSummaryResponse {
-    private int month;
-    private int year;
+    private Long hospitalId;
+    private String hospitalName;
+    private String month; // e.g. "2026-02"
+    private Double totalBilling;
     private Double totalPayments;
+    private Double outstandingBalance;
 }
