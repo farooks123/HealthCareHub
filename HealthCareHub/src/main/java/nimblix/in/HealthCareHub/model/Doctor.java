@@ -1,5 +1,6 @@
 package nimblix.in.HealthCareHub.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import nimblix.in.HealthCareHub.utility.HealthCareUtil;
@@ -32,6 +33,7 @@ public class Doctor {
     private String password;
 
     private String qualification;
+    private Double consultationFee;
 
     // ✅ Doctor login account
     @OneToOne

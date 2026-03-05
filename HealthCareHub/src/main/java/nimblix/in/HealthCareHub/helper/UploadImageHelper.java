@@ -1,18 +1,13 @@
-package nimblix.in.HealthCareHub.helper;
+/*package nimblix.in.HealthCareHub.helper;
 
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
-import nimblix.in.HealthCareHub.constants.HealthCareConstants;
 import nimblix.in.HealthCareHub.response.MultipleImageResponse;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -27,7 +22,7 @@ public class UploadImageHelper {
         List<String> failedFileNames = new ArrayList<>();
 
         if (pictures == null || pictures.isEmpty()) {
-            return new MultipleImageResponse(HealthCareConstants.STATUS_ERORR, "No files provided", Collections.emptyList());
+            return new MultipleImageResponse(SchoolConstants.STATUS_ERORR, "No files provided", Collections.emptyList());
         }
 
         for (MultipartFile file : pictures) {
@@ -73,10 +68,11 @@ public class UploadImageHelper {
 
         if (uploadedFileNames.isEmpty()) {
             String failedFilesMessage = "Image upload failed for the following files: " + String.join(", ", failedFileNames);
-            return new MultipleImageResponse(HealthCareConstants.STATUS_ERORR, failedFilesMessage, Collections.emptyList());
+            return new MultipleImageResponse(SchoolConstants.STATUS_ERORR, failedFilesMessage, Collections.emptyList());
         }
 
-        return new MultipleImageResponse(HealthCareConstants.STATUS_SUCCESS, "Image upload successful", uploadedFileNames);
+        return new MultipleImageResponse(SchoolConstants.STATUS_SUCCESS, "Image upload successful", uploadedFileNames);
     }
 
 }
+*/
